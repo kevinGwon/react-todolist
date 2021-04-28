@@ -77,14 +77,43 @@ const Input = styled.input`
 `;
 
 function TodoCreate() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
+
+  const onToggle = () => setOpen(!open);
+  const onChange = (e) => setValue(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: 'CREATE',
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false,
+      },
+    });
+    nextId.current += 1;
+    setOpen(false);
+    setValue('');
+  };
+
   return (
     <>
-      <InsertFormPositioner>
-        <InsertForm>
-          <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
-        </InsertForm>
-      </InsertFormPositioner>
-      <CircleButton>
+      {open && (
+        <InsertFormPositioner>
+          <InsertForm onSubmit={onSubmit}>
+            <Input
+              onChange={onChange}
+              value={value}
+              autoFocus
+              placeholder="할 일을 입력 후, Enter 를 누르세요"
+            />
+          </InsertForm>
+        </InsertFormPositioner>
+      )}
+      <CircleButton onClick={onToggle} open={open}>
         <MdAdd />
       </CircleButton>
     </>
