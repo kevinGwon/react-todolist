@@ -11,12 +11,18 @@ const TodoListBlock = styled.div`
 `;
 
 function TodoList() {
+  const todos = useTodoState();
+
   return (
     <TodoListBlock>
-      <TodoItem text={'Todo 1'} />
-      <TodoItem text={'Todo 2'} />
-      <TodoItem text={'Todo 3'} />
-      <TodoItem text={'Todo 4'} />
+      {todos.map((todo) => (
+        <TodoItem
+          id={todo.id}
+          text={todo.text}
+          done={todo.done}
+          key={todo.id}
+        />
+      ))}
     </TodoListBlock>
   );
 }

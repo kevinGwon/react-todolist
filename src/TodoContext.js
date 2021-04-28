@@ -1,9 +1,18 @@
 import React, { createContext, useReducer, useContext } from 'react';
 
 const TodoStateContext = createContext(null);
+const TodoDispatchContext = createContext(null);
 
 function todoReducer(state, action) {
   switch (action.type) {
+    case 'CREATE':
+      return state.concat(action.todo);
+    case 'TOGGLE':
+      return state.map(todo =>
+        todo.id === action.id ? { ...todo, done: !todo.done } : todo
+      );
+    case 'REMOVE':
+      return state.filter(todo => todo.id !== action.id);
     default:
       return state;
   }
@@ -28,12 +37,18 @@ export function TodoProvider({ children }) {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
 
   return (
-    <TodoStateContext.Provider value={state}>
-      {children}
-    </TodoStateContext.Provider>
+    <TodoDispatchContext.Provider value={dispatch}>
+      <TodoStateContext.Provider value={state}>
+        {children}
+      </TodoStateContext.Provider>
+    </TodoDispatchContext.Provider>
   );
 }
 
 export function useTodoState() {
   return useContext(TodoStateContext);
+}
+
+export function useTodoDispatch() {
+  return useContext(TodoDispatchContext);
 }
