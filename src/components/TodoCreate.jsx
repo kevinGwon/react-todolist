@@ -33,7 +33,7 @@ const CircleButton = styled.button`
   justify-content: center;
 
   transition: 0.125s all ease-in;
-  ${props =>
+  ${(props) =>
     props.open &&
     css`
       background: #ff6b6b;
@@ -83,16 +83,16 @@ function TodoCreate() {
   const nextId = useTodoNextId();
 
   const onToggle = () => setOpen(!open);
-  const onChange = e => setValue(e.target.value);
-  const onSubmit = e => {
+  const onChange = (e) => setValue(e.target.value);
+  const onSubmit = (e) => {
     e.preventDefault();
     dispatch({
       type: 'CREATE',
       todo: {
         id: nextId.current,
         text: value,
-        done: false
-      }
+        done: false,
+      },
     });
     nextId.current += 1;
     setOpen(false);
@@ -105,9 +105,9 @@ function TodoCreate() {
         <InsertFormPositioner>
           <InsertForm onSubmit={onSubmit}>
             <Input
-              autoFocus
               onChange={onChange}
               value={value}
+              autoFocus
               placeholder="할 일을 입력 후, Enter 를 누르세요"
             />
           </InsertForm>

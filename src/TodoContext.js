@@ -39,13 +39,13 @@ export function TodoProvider({ children }) {
   const nextId = useRef(5);
 
   return (
-    <TodoStateContext.Provider value={state}>
-      <TodoDispatchContext.Provider value={dispatch}>
+    <TodoDispatchContext.Provider value={dispatch}>
+      <TodoStateContext.Provider value={state}>
         <TodoNextIdContext.Provider value={nextId}>
           {children}
         </TodoNextIdContext.Provider>
-      </TodoDispatchContext.Provider>
-    </TodoStateContext.Provider>
+      </TodoStateContext.Provider>
+    </TodoDispatchContext.Provider>
   );
 }
 
