@@ -39,7 +39,7 @@ const CheckCircle = styled.div`
   justify-content: center;
   margin-right: 20px;
   cursor: pointer;
-  ${props =>
+  ${(props) =>
     props.done &&
     css`
       border: 1px solid #38d9a9;
@@ -51,7 +51,7 @@ const Text = styled.div`
   flex: 1;
   font-size: 21px;
   color: #495057;
-  ${props =>
+  ${(props) =>
     props.done &&
     css`
       color: #ced4da;
@@ -64,14 +64,14 @@ function TodoItem({ id, done, text }) {
   const onToggle = () => {
     dispatch({
       type: 'TOGGLE',
-      id
+      id,
     });
   };
 
   const onRemove = () => {
     dispatch({
       type: 'REMOVE',
-      id
+      id,
     });
   };
 

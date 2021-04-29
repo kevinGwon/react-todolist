@@ -33,12 +33,13 @@ function TodoHead() {
   const dateString = today.toLocaleString('ko-KR', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   });
 
   const dayName = today.toLocaleString('ko-KR', { weekday: 'long' });
+
   const todos = useTodoState();
-  const undoneTasks = todos.filter(todo => !todo.done);
+  const undoneTasks = todos.filter((todo) => !todo.done);
 
   return (
     <TodoHeadBlock>
